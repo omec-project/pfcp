@@ -31,6 +31,11 @@ type ConsumerTable struct {
 	m sync.Map // map[string]pfcp.TxTable
 }
 
+type PfcpEventData struct {
+	LSEID      uint64
+	ErrHandler func(*pfcp.Message, error)
+}
+
 func (t *ConsumerTable) Load(consumerAddr string) (*pfcp.TxTable, bool) {
 	txTable, ok := t.m.Load(consumerAddr)
 	if ok {
@@ -70,52 +75,53 @@ func (pfcpServer *PfcpServer) Listen() error {
 	return err
 }
 
-func (pfcpServer *PfcpServer) ReadFrom(msg *pfcp.Message) (*net.UDPAddr, error) {
+func (pfcpServer *PfcpServer) ReadFrom(msg *pfcp.Message) (*net.UDPAddr, interface{}, error) {
 	buf := make([]byte, PFCP_MAX_UDP_LEN)
 	n, addr, err := pfcpServer.Conn.ReadFromUDP(buf)
 	if err != nil {
-		return addr, err
+		return addr, nil, err
 	}
 
 	err = msg.Unmarshal(buf[:n])
 	if err != nil {
-		return addr, err
+		return addr, nil, err
 	}
 
+	var eventData interface{}
 	if msg.IsRequest() {
 		//Todo: Implement SendingResponse type of reliable delivery
 		tx, err := pfcpServer.FindTransaction(msg, addr)
 		if err != nil {
-			return addr, err
+			return addr, nil, err
 		} else if tx != nil {
 			//err == nil && tx != nil => Resend Request
 			err = fmt.Errorf("Receive resend PFCP request")
 			tx.EventChannel <- pfcp.ReceiveResendRequest
-			return addr, err
+			return addr, nil, err
 		} else {
 			//err == nil && tx == nil => New Request
-			return addr, nil
+			return addr, nil, nil
 		}
 	} else if msg.IsResponse() {
 		tx, err := pfcpServer.FindTransaction(msg, pfcpServer.Conn.LocalAddr().(*net.UDPAddr))
 		if err != nil {
-			return addr, err
+			return addr, nil, err
 		}
-
+		eventData = tx.EventData
 		tx.EventChannel <- pfcp.ReceiveValidResponse
 	}
 
-	return addr, nil
+	return addr, eventData, nil
 }
 
-func (pfcpServer *PfcpServer) WriteTo(msg pfcp.Message, addr *net.UDPAddr, errHandler func(*pfcp.Message, error)) error {
+func (pfcpServer *PfcpServer) WriteTo(msg pfcp.Message, addr *net.UDPAddr, eventData interface{}) error {
 	buf, err := msg.Marshal()
 	if err != nil {
 		return err
 	}
 
 	/*TODO: check if all bytes of buf are sent*/
-	tx := pfcp.NewTransaction(msg, buf, pfcpServer.Conn, addr, errHandler)
+	tx := pfcp.NewTransaction(msg, buf, pfcpServer.Conn, addr, eventData)
 
 	err = pfcpServer.PutTransaction(tx)
 	if err != nil {
@@ -189,10 +195,14 @@ func (pfcpServer *PfcpServer) StartTxLifeCycle(tx *pfcp.Transaction) {
 		logger.PFCPLog.Warnln(err)
 	}
 
-	if sendErr != nil && tx.ErrHandler != nil {
-		var msg pfcp.Message
-		msg.Unmarshal(tx.SendMsg)
-		tx.ErrHandler(&msg, sendErr)
+	if sendErr != nil && tx.EventData != nil {
+		if eventData, ok := tx.EventData.(PfcpEventData); ok {
+			if errHandler := eventData.ErrHandler; errHandler != nil {
+				var msg pfcp.Message
+				msg.Unmarshal(tx.SendMsg)
+				errHandler(&msg, sendErr)
+			}
+		}
 	}
 }
 
