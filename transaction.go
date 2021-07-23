@@ -58,10 +58,11 @@ type Transaction struct {
 	DestAddr       *net.UDPAddr
 	ConsumerAddr   string
 	ErrHandler     func(*Message, error)
+	EventData      interface{}
 }
 
 // NewTransaction - create pfcp transaction object
-func NewTransaction(pfcpMSG Message, binaryMSG []byte, Conn *net.UDPConn, DestAddr *net.UDPAddr, errHandler func(*Message, error)) (tx *Transaction) {
+func NewTransaction(pfcpMSG Message, binaryMSG []byte, Conn *net.UDPConn, DestAddr *net.UDPAddr, eventData interface{}) (tx *Transaction) {
 	tx = &Transaction{
 		SendMsg:        binaryMSG,
 		SequenceNumber: pfcpMSG.Header.SequenceNumber,
@@ -69,7 +70,7 @@ func NewTransaction(pfcpMSG Message, binaryMSG []byte, Conn *net.UDPConn, DestAd
 		EventChannel:   make(chan EventType),
 		Conn:           Conn,
 		DestAddr:       DestAddr,
-		ErrHandler:     errHandler,
+		EventData:      eventData,
 	}
 
 	if pfcpMSG.IsRequest() {
