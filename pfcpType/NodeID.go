@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"math/bits"
 	"net"
+	"time"
 
 	"github.com/free5gc/pfcp/logger"
 )
@@ -22,6 +23,50 @@ const (
 type NodeID struct {
 	NodeIdType  uint8 // 0x00001111
 	NodeIdValue []byte
+}
+
+var dnsHostIpCache map[string]net.IP
+
+func init() {
+	dnsHostIpCache = make(map[string]net.IP)
+	ticker := time.NewTicker(time.Minute)
+
+	go func() {
+		for {
+			<-ticker.C
+			RefreshDnsHostIpCache()
+		}
+	}()
+}
+
+func RefreshDnsHostIpCache() {
+	for hostName := range dnsHostIpCache {
+		logger.PFCPLog.Infof("refreshing DNS for host [%v] ", hostName)
+		if ns, err := net.LookupHost(hostName); err != nil {
+			logger.PFCPLog.Warnf("Host lookup failed: %+v", err)
+			deleteDnsHost(hostName)
+			continue
+		} else if !dnsHostIpCache[hostName].Equal(net.ParseIP(ns[0])) {
+			logger.PFCPLog.Infof("smf dns cache updated for host [%v]: [%v] ", hostName, net.ParseIP(ns[0]).String())
+			dnsHostIpCache[hostName] = net.ParseIP(ns[0])
+		}
+	}
+}
+
+func getDnsHostIp(hostName string) (net.IP, error) {
+	if ip, ok := dnsHostIpCache[hostName]; !ok {
+		return nil, fmt.Errorf("host [%v] not found in smf dns cache", hostName)
+	} else {
+		return ip, nil
+	}
+}
+
+func insertDnsHostIp(hostName string, ip net.IP) {
+	dnsHostIpCache[hostName] = ip
+}
+
+func deleteDnsHost(hostName string) {
+	delete(dnsHostIpCache, hostName)
 }
 
 func (n *NodeID) MarshalBinary() (data []byte, err error) {
@@ -84,11 +129,19 @@ func (n *NodeID) ResolveNodeIdToIp() net.IP {
 	case NodeIdTypeIpv4Address, NodeIdTypeIpv6Address:
 		return net.IP(n.NodeIdValue)
 	case NodeIdTypeFqdn:
-		if ns, err := net.LookupHost(string(n.NodeIdValue)); err != nil {
-			logger.PFCPLog.Warnf("Host lookup failed: %+v", err)
-			return net.IPv4zero
+		if ip, err := getDnsHostIp(string(n.NodeIdValue)); err != nil {
+			logger.PFCPLog.Warnf("host [%v] not found in smf dns cache ", string(n.NodeIdValue))
+			if ns, err := net.LookupHost(string(n.NodeIdValue)); err != nil {
+				logger.PFCPLog.Warnf("Host lookup failed: %+v", err)
+				return net.IPv4zero
+			} else {
+				logger.PFCPLog.Infof("host [%v] dns resolved, updating smf dns cache ", string(n.NodeIdValue))
+				insertDnsHostIp(string(n.NodeIdValue), net.ParseIP(ns[0]))
+				return net.ParseIP(ns[0])
+			}
 		} else {
-			return net.ParseIP(ns[0])
+			logger.PFCPLog.Debugf("host [%v] found in smf dns cache ", string(n.NodeIdValue))
+			return ip
 		}
 	default:
 		return net.IPv4zero
