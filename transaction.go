@@ -67,7 +67,7 @@ func NewTransaction(pfcpMSG Message, binaryMSG []byte, Conn *net.UDPConn, DestAd
 		SendMsg:        binaryMSG,
 		SequenceNumber: pfcpMSG.Header.SequenceNumber,
 		MessageType:    pfcpMSG.Header.MessageType,
-		EventChannel:   make(chan EventType),
+		EventChannel:   make(chan EventType,1),
 		Conn:           Conn,
 		DestAddr:       DestAddr,
 		EventData:      eventData,
