@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2021 Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+//
 
 package pfcp
 
@@ -93,7 +93,7 @@ type PFCPPFDManagementRequest struct {
 
 type ApplicationIDsPFDs struct {
 	ApplicationID *pfcpType.ApplicationID `tlv:"24"`
-	PFD           *PFD                   `tlv:"59"`
+	PFD           *PFD                    `tlv:"59"`
 }
 
 type PFD struct {
@@ -556,7 +556,7 @@ type UsageReportPFCPSessionModificationResponse struct {
 }
 
 type PFCPSessionDeletionRequest struct {
-	CPFSEID                  *pfcpType.FSEID                    `tlv:"57"`
+	CPFSEID *pfcpType.FSEID `tlv:"57"`
 }
 
 type PFCPSessionDeletionResponse struct {
