@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2021 Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+//
 
 package pfcp
 
@@ -67,7 +67,7 @@ func NewTransaction(pfcpMSG Message, binaryMSG []byte, Conn *net.UDPConn, DestAd
 		SendMsg:        binaryMSG,
 		SequenceNumber: pfcpMSG.Header.SequenceNumber,
 		MessageType:    pfcpMSG.Header.MessageType,
-		EventChannel:   make(chan EventType,1),
+		EventChannel:   make(chan EventType, 1),
 		Conn:           Conn,
 		DestAddr:       DestAddr,
 		EventData:      eventData,
