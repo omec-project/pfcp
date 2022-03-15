@@ -172,3 +172,8 @@ func (s *SDFFilter) UnmarshalBinary(data []byte) error {
 
 	return nil
 }
+
+func (sdf SDFFilter) String() string {
+	return fmt.Sprintf("SDF: sdfid:[%v], [bid:[%v], fl:[%v], spi:[%v], ttc:[%v], fd:[%v], flowdesc:[%s], lenfd:[%v], tosclass:[%s]], spi:[%s], flowlabel:[%s] ",
+		sdf.SdfFilterId, sdf.Bid, sdf.Fl, sdf.Spi, sdf.Ttc, sdf.Fd, sdf.FlowDescription, sdf.LengthOfFlowDescription, sdf.TosTrafficClass, sdf.SecurityParameterIndex, sdf.FlowLabel)
+}

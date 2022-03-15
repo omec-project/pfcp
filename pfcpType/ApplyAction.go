@@ -50,3 +50,7 @@ func (a *ApplyAction) UnmarshalBinary(data []byte) error {
 
 	return nil
 }
+
+func (act ApplyAction) ActionString() string {
+	return fmt.Sprintf("Action:[Dup:%v, Nocp:%v, Buff:%v, Forw:%v, Drop:%v]", act.Dupl, act.Nocp, act.Buff, act.Forw, act.Drop)
+}
