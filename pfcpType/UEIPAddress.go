@@ -11,10 +11,12 @@ import (
 )
 
 type UEIPAddress struct {
-	Ipv6d                    bool
-	Sd                       bool
-	V4                       bool
-	V6                       bool
+	Ipv6d                    bool //bit 4
+	Sd                       bool //bit 3
+	V4                       bool //bit 2
+	V6                       bool //bit 1
+	CHV4                     bool //bit 5
+	CHV6                     bool //bit 6
 	Ipv4Address              net.IP
 	Ipv6Address              net.IP
 	Ipv6PrefixDelegationBits uint8
@@ -22,7 +24,9 @@ type UEIPAddress struct {
 
 func (u *UEIPAddress) MarshalBinary() (data []byte, err error) {
 	// Octet 5
-	tmpUint8 := btou(u.Ipv6d)<<3 |
+	tmpUint8 := btou(u.CHV6)<<5 |
+		btou(u.CHV4)<<4 |
+		btou(u.Ipv6d)<<3 |
 		btou(u.Sd)<<2 |
 		btou(u.V4)<<1 |
 		btou(u.V6)
@@ -60,6 +64,9 @@ func (u *UEIPAddress) UnmarshalBinary(data []byte) error {
 	if length < idx+1 {
 		return fmt.Errorf("Inadequate TLV length: %d", length)
 	}
+
+	u.CHV6 = utob(uint8(data[idx]) & BitMask6)
+	u.CHV4 = utob(uint8(data[idx]) & BitMask5)
 	u.Ipv6d = utob(uint8(data[idx]) & BitMask4)
 	u.Sd = utob(uint8(data[idx]) & BitMask3)
 	u.V4 = utob(uint8(data[idx]) & BitMask2)
