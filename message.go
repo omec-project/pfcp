@@ -354,8 +354,9 @@ type PFCPSessionEstablishmentResponse struct {
 }
 
 type CreatedPDR struct {
-	PDRID      *pfcpType.PacketDetectionRuleID `tlv:"56"`
-	LocalFTEID *pfcpType.FTEID                 `tlv:"21"`
+	PDRID       *pfcpType.PacketDetectionRuleID `tlv:"56"`
+	LocalFTEID  *pfcpType.FTEID                 `tlv:"21"`
+	UEIPAddress *pfcpType.UEIPAddress           `tlv:"93"`
 }
 
 type LoadControlInformation struct {
