@@ -169,9 +169,9 @@ func (pfcpServer *PfcpServer) RemoveTransaction(tx *pfcp.Transaction) (err error
 	if txTmp, exist := txTable.Load(tx.SequenceNumber); exist {
 		tx = txTmp
 		if tx.TxType == pfcp.SendingRequest {
-			logger.PFCPLog.Infof("Remove Request Transaction [%d]\n", tx.SequenceNumber)
+			logger.PFCPLog.Debugf("Remove Request Transaction [%d]\n", tx.SequenceNumber)
 		} else if tx.TxType == pfcp.SendingResponse {
-			logger.PFCPLog.Infof("Remove Response Transaction [%d]\n", tx.SequenceNumber)
+			logger.PFCPLog.Debugf("Remove Response Transaction [%d]\n", tx.SequenceNumber)
 		}
 
 		txTable.Delete(tx.SequenceNumber)

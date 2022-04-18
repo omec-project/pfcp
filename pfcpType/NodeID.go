@@ -42,7 +42,7 @@ func init() {
 
 func RefreshDnsHostIpCache() {
 	for hostName := range dnsHostIpCache {
-		logger.PFCPLog.Infof("refreshing DNS for host [%v] ", hostName)
+		logger.PFCPLog.Debugf("refreshing DNS for host [%v] ", hostName)
 		if ns, err := net.LookupHost(hostName); err != nil {
 			logger.PFCPLog.Warnf("Host lookup failed: %+v", err)
 			deleteDnsHost(hostName)
