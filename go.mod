@@ -1,14 +1,14 @@
-module github.com/free5gc/pfcp
+module github.com/omec-project/pfcp
 
 go 1.14
 
 require (
 	github.com/antonfisher/nested-logrus-formatter v1.3.0
-	github.com/free5gc/logger_conf v1.0.0
-	github.com/free5gc/logger_util v1.0.0
-	github.com/free5gc/tlv v1.0.0
-	github.com/free5gc/util_3gpp v1.0.0
+	github.com/omec-project/logger_conf v1.0.100-dev
+	github.com/omec-project/logger_util v1.0.100-dev
+	github.com/omec-project/tlv v1.0.100-dev
+	github.com/omec-project/util_3gpp v1.0.100-dev
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 )

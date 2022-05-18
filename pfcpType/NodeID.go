@@ -12,7 +12,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/free5gc/pfcp/logger"
+	"github.com/omec-project/pfcp/logger"
 )
 
 const (

@@ -10,8 +10,8 @@ import (
 	"math/bits"
 	"net"
 
-	"github.com/free5gc/pfcp/logger"
-	"github.com/free5gc/util_3gpp"
+	"github.com/omec-project/pfcp/logger"
+	"github.com/omec-project/util_3gpp"
 )
 
 type UserPlaneIPResourceInformation struct {
