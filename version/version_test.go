@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/free5gc/pfcp/version"
+	"github.com/omec-project/pfcp/version"
 )
 
 func TestVersion(t *testing.T) {

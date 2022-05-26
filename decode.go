@@ -8,7 +8,7 @@ package pfcp
 import (
 	"fmt"
 
-	"github.com/free5gc/tlv"
+	"github.com/omec-project/tlv"
 )
 
 func (m *Message) Unmarshal(data []byte) error {

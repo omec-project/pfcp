@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/free5gc/pfcp"
+	"github.com/omec-project/pfcp"
 )
 
 const (

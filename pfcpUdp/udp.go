@@ -11,8 +11,8 @@ import (
 	"net"
 	"sync"
 
-	"github.com/free5gc/pfcp"
-	"github.com/free5gc/pfcp/logger"
+	"github.com/omec-project/pfcp"
+	"github.com/omec-project/pfcp/logger"
 )
 
 const (

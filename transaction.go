@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/free5gc/pfcp/logger"
+	"github.com/omec-project/pfcp/logger"
 	"github.com/pkg/errors"
 )
 

@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/free5gc/pfcp/pfcpType"
+	"github.com/omec-project/pfcp/pfcpType"
 )
 
 func TestMarshalPFDContents(t *testing.T) {

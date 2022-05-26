@@ -9,7 +9,7 @@ package pfcpUdp
 import (
 	"net"
 
-	"github.com/free5gc/pfcp"
+	"github.com/omec-project/pfcp"
 )
 
 type Message struct {
