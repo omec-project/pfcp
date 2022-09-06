@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
+//
 // Copyright 2019 free5GC.org
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -8,7 +10,9 @@ package pfcp
 import (
 	"bytes"
 	"encoding/binary"
+	"encoding/json"
 	"errors"
+	"strconv"
 
 	"github.com/omec-project/pfcp/logger"
 )
@@ -114,4 +118,41 @@ func (h *Header) Len() int {
 		return 8
 	}
 	return 16
+}
+
+func (h *Header) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal header [%v] ", h)
+	type Alias Header
+	seid := SeidConv(h.SEID)
+	return json.Marshal(&struct {
+		Seid string `json:"seid"`
+		*Alias
+	}{
+		Seid:  seid,
+		Alias: (*Alias)(h),
+	})
+}
+
+func (h *Header) UnmarshalJSON(data []byte) error {
+
+	type Alias Header
+
+	aux := &struct {
+		Seid string `json:"seid"`
+		*Alias
+	}{Alias: (*Alias)(h)}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		logger.PFCPLog.Errorf("json unmarshal header error [%v] ", err)
+		return err
+	}
+
+	//replace with decoded one
+	fseidStr := aux.Seid
+	seid, _ := strconv.ParseUint(fseidStr, 16, 64)
+	h.SEID = seid
+
+	logger.PFCPLog.Debugf("json unmarshal header [%v] ", h)
+	return nil
 }
