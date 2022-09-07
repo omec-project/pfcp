@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
+//
 // Copyright (c) 2021 Intel Corporation
 // Copyright 2019 free5GC.org
 //
@@ -7,13 +9,139 @@
 package pfcp
 
 import (
+	"encoding/json"
+	"fmt"
+	"strconv"
+
+	"github.com/omec-project/pfcp/logger"
 	"github.com/omec-project/pfcp/pfcpType"
 	"github.com/omec-project/util_3gpp"
 )
 
 type Message struct {
-	Header Header
-	Body   interface{}
+	Header Header      `json:"header"`
+	Body   interface{} `json:"body"`
+}
+
+func (msg *Message) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal pfcp message [%v] ", msg)
+	switch msg.Header.MessageType {
+	case PFCP_ASSOCIATION_SETUP_REQUEST:
+
+		//typecast body to original msg type
+		body := msg.Body.(PFCPAssociationSetupRequest)
+
+		return json.Marshal(&struct {
+			Header Header                      `json:"header"`
+			Body   PFCPAssociationSetupRequest `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_ASSOCIATION_SETUP_RESPONSE:
+
+		//typecast body to original msg type
+		body := msg.Body.(PFCPAssociationSetupResponse)
+
+		return json.Marshal(&struct {
+			Header Header                       `json:"header"`
+			Body   PFCPAssociationSetupResponse `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_HEARTBEAT_REQUEST:
+		//typecast body to original msg type
+		body := msg.Body.(HeartbeatRequest)
+
+		return json.Marshal(&struct {
+			Header Header           `json:"header"`
+			Body   HeartbeatRequest `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_HEARTBEAT_RESPONSE:
+		//typecast body to original msg type
+		body := msg.Body.(HeartbeatResponse)
+
+		return json.Marshal(&struct {
+			Header Header            `json:"header"`
+			Body   HeartbeatResponse `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_SESSION_ESTABLISHMENT_REQUEST:
+		//typecast body to original msg type
+		body := msg.Body.(PFCPSessionEstablishmentRequest)
+
+		return json.Marshal(&struct {
+			Header Header                          `json:"header"`
+			Body   PFCPSessionEstablishmentRequest `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_SESSION_ESTABLISHMENT_RESPONSE:
+		//typecast body to original msg type
+		body := msg.Body.(PFCPSessionEstablishmentResponse)
+
+		return json.Marshal(&struct {
+			Header Header                           `json:"header"`
+			Body   PFCPSessionEstablishmentResponse `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_SESSION_MODIFICATION_REQUEST:
+		//typecast body to original msg type
+		body := msg.Body.(PFCPSessionModificationRequest)
+
+		return json.Marshal(&struct {
+			Header Header                         `json:"header"`
+			Body   PFCPSessionModificationRequest `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_SESSION_MODIFICATION_RESPONSE:
+		//typecast body to original msg type
+		body := msg.Body.(PFCPSessionModificationResponse)
+
+		return json.Marshal(&struct {
+			Header Header                          `json:"header"`
+			Body   PFCPSessionModificationResponse `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_SESSION_DELETION_REQUEST:
+		//typecast body to original msg type
+		body := msg.Body.(PFCPSessionDeletionRequest)
+
+		return json.Marshal(&struct {
+			Header Header                     `json:"header"`
+			Body   PFCPSessionDeletionRequest `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	case PFCP_SESSION_DELETION_RESPONSE:
+		//typecast body to original msg type
+		body := msg.Body.(PFCPSessionDeletionResponse)
+
+		return json.Marshal(&struct {
+			Header Header                      `json:"header"`
+			Body   PFCPSessionDeletionResponse `json:"body"`
+		}{
+			Header: msg.Header,
+			Body:   body,
+		})
+	default:
+		return nil, fmt.Errorf("pfcp message json marshal, unhandled msg type [%v] ", msg.Header.MessageType)
+	}
 }
 
 func (message *Message) IsRequest() (IsRequest bool) {
@@ -649,4 +777,217 @@ type UpdateBARIEInPFCPSessionReportResponse struct {
 	DLBufferingDuration             *pfcpType.DLBufferingDuration             `tlv:"47"`
 	DLBufferingSuggestedPacketCount *pfcpType.DLBufferingSuggestedPacketCount `tlv:"48"`
 	SuggestedBufferingPacketsCount  *pfcpType.SuggestedBufferingPacketsCount  `tlv:"140"`
+}
+
+func (msg *HeartbeatRequest) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal pfcp heartbeat request message [%v] ", msg)
+	type Alias HeartbeatRequest
+
+	return json.Marshal(&struct {
+		*Alias
+	}{Alias: (*Alias)(msg)})
+}
+
+func (msg *HeartbeatRequest) UnmarshalJSON(data []byte) error {
+
+	type Alias HeartbeatRequest
+
+	aux := &struct {
+		*Alias
+	}{Alias: (*Alias)(msg)}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	logger.PFCPLog.Debugf("json unmarshal pfcp heartbeat request message [%v] ", msg)
+	return nil
+}
+
+func (msg *PFCPAssociationSetupRequest) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal pfcp association request message [%v] ", msg)
+	type Alias PFCPAssociationSetupRequest
+
+	return json.Marshal(&struct {
+		*Alias
+	}{Alias: (*Alias)(msg)})
+}
+
+func (msg *PFCPAssociationSetupRequest) UnmarshalJSON(data []byte) error {
+
+	type Alias PFCPAssociationSetupRequest
+
+	aux := &struct {
+		*Alias
+	}{Alias: (*Alias)(msg)}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	logger.PFCPLog.Debugf("json unmarshal pfcp association request message [%v] ", msg)
+	return nil
+}
+
+func (msg *PFCPSessionEstablishmentRequest) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal pfcp session establishment request message [%v] ", msg)
+	type Alias PFCPSessionEstablishmentRequest
+
+	fseid := SeidConv(msg.CPFSEID.Seid)
+
+	return json.Marshal(&struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{
+		Alias: (*Alias)(msg),
+		Fseid: fseid,
+	})
+}
+
+func (msg *PFCPSessionEstablishmentRequest) UnmarshalJSON(data []byte) error {
+
+	type Alias PFCPSessionEstablishmentRequest
+
+	aux := &struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{Alias: (*Alias)(msg)}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	fseidStr := aux.Fseid
+
+	fseid, _ := strconv.ParseUint(fseidStr, 16, 64)
+
+	msg.CPFSEID.Seid = fseid
+
+	logger.PFCPLog.Debugf("json unmarshal pfcp session establishment request message [%v] ", msg)
+	return nil
+}
+
+func (msg *PFCPSessionEstablishmentResponse) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal pfcp session establishment response message [%v] ", msg)
+	type Alias PFCPSessionEstablishmentResponse
+
+	fseid := SeidConv(msg.UPFSEID.Seid)
+
+	return json.Marshal(&struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{
+		Alias: (*Alias)(msg),
+		Fseid: fseid,
+	})
+}
+
+func (msg *PFCPSessionEstablishmentResponse) UnmarshalJSON(data []byte) error {
+
+	type Alias PFCPSessionEstablishmentResponse
+
+	aux := &struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{Alias: (*Alias)(msg)}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	fseidStr := aux.Fseid
+
+	fseid, _ := strconv.ParseUint(fseidStr, 16, 64)
+
+	msg.UPFSEID.Seid = fseid
+
+	logger.PFCPLog.Debugf("json unmarshal pfcp session establishment response message [%v] ", msg)
+	return nil
+}
+
+func (msg *PFCPSessionModificationRequest) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal pfcp session modify request message [%v] ", msg)
+	type Alias PFCPSessionModificationRequest
+
+	fseid := SeidConv(msg.CPFSEID.Seid)
+
+	return json.Marshal(&struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{
+		Alias: (*Alias)(msg),
+		Fseid: fseid,
+	})
+}
+
+func (msg *PFCPSessionModificationRequest) UnmarshalJSON(data []byte) error {
+
+	type Alias PFCPSessionModificationRequest
+
+	aux := &struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{Alias: (*Alias)(msg)}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	fseidStr := aux.Fseid
+
+	fseid, _ := strconv.ParseUint(fseidStr, 16, 64)
+
+	msg.CPFSEID.Seid = fseid
+
+	logger.PFCPLog.Debugf("json unmarshal pfcp session modify response message [%v] ", msg)
+	return nil
+}
+
+func (msg *PFCPSessionDeletionRequest) MarshalJSON() ([]byte, error) {
+
+	logger.PFCPLog.Debugf("json marshal pfcp session delete request message [%v] ", msg)
+	type Alias PFCPSessionDeletionRequest
+
+	fseid := SeidConv(msg.CPFSEID.Seid)
+
+	return json.Marshal(&struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{
+		Alias: (*Alias)(msg),
+		Fseid: fseid,
+	})
+}
+
+func (msg *PFCPSessionDeletionRequest) UnmarshalJSON(data []byte) error {
+
+	type Alias PFCPSessionDeletionRequest
+
+	aux := &struct {
+		Fseid string `json:"fseid"`
+		*Alias
+	}{Alias: (*Alias)(msg)}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	fseidStr := aux.Fseid
+
+	fseid, _ := strconv.ParseUint(fseidStr, 16, 64)
+
+	msg.CPFSEID.Seid = fseid
+
+	logger.PFCPLog.Debugf("json unmarshal pfcp session delete response message [%v] ", msg)
+	return nil
+}
+
+func SeidConv(seid uint64) (seidStr string) {
+	seidStr = strconv.FormatUint(seid, 16)
+	return seidStr
 }
