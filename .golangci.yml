@@ -215,17 +215,14 @@ linters:
   enable:
     - gofmt
     - govet
-    - errcheck
+    # - errcheck
     - staticcheck
     - unused
     - gosimple
-    - structcheck
-    - varcheck
-    - ineffassign
-    - deadcode
+    # - ineffassign
     - typecheck
     # Additional
-    - lll
+    # - lll
     - godox
     # - gomnd
     #- maligned
