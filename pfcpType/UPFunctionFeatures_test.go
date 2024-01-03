@@ -18,7 +18,7 @@ func TestMarshalUPFunctionFeatures(t *testing.T) {
 	buf, err := testData.MarshalBinary()
 
 	assert.Nil(t, err)
-	assert.Equal(t, []byte{8, 4}, buf)
+	assert.Equal(t, []byte{8, 4, 0, 0, 0, 0}, buf)
 }
 
 func TestUnmarshalUPFunctionFeatures(t *testing.T) {
