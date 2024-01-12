@@ -874,7 +874,10 @@ func (msg *PFCPSessionEstablishmentResponse) MarshalJSON() ([]byte, error) {
 	logger.PFCPLog.Debugf("json marshal pfcp session establishment response message [%v] ", msg)
 	type Alias PFCPSessionEstablishmentResponse
 
-	fseid := SeidConv(msg.UPFSEID.Seid)
+	var fseid string
+	if msg.UPFSEID != nil {
+		fseid = SeidConv(msg.UPFSEID.Seid)
+	}
 
 	return json.Marshal(&struct {
 		Fseid string `json:"fseid"`
@@ -902,7 +905,9 @@ func (msg *PFCPSessionEstablishmentResponse) UnmarshalJSON(data []byte) error {
 
 	fseid, _ := strconv.ParseUint(fseidStr, 16, 64)
 
-	msg.UPFSEID.Seid = fseid
+	if msg.UPFSEID != nil {
+		msg.UPFSEID.Seid = fseid
+	}
 
 	logger.PFCPLog.Debugf("json unmarshal pfcp session establishment response message [%v] ", msg)
 	return nil
@@ -913,7 +918,10 @@ func (msg *PFCPSessionModificationRequest) MarshalJSON() ([]byte, error) {
 	logger.PFCPLog.Debugf("json marshal pfcp session modify request message [%v] ", msg)
 	type Alias PFCPSessionModificationRequest
 
-	fseid := SeidConv(msg.CPFSEID.Seid)
+	var fseid string
+	if msg.CPFSEID != nil {
+		fseid = SeidConv(msg.CPFSEID.Seid)
+	}
 
 	return json.Marshal(&struct {
 		Fseid string `json:"fseid"`
@@ -952,7 +960,10 @@ func (msg *PFCPSessionDeletionRequest) MarshalJSON() ([]byte, error) {
 	logger.PFCPLog.Debugf("json marshal pfcp session delete request message [%v] ", msg)
 	type Alias PFCPSessionDeletionRequest
 
-	fseid := SeidConv(msg.CPFSEID.Seid)
+	var fseid string
+	if msg.CPFSEID != nil {
+		fseid = SeidConv(msg.CPFSEID.Seid)
+	}
 
 	return json.Marshal(&struct {
 		Fseid string `json:"fseid"`
@@ -982,7 +993,7 @@ func (msg *PFCPSessionDeletionRequest) UnmarshalJSON(data []byte) error {
 
 	msg.CPFSEID.Seid = fseid
 
-	logger.PFCPLog.Debugf("json unmarshal pfcp session delete response message [%v] ", msg)
+	logger.PFCPLog.Debugf("json unmarshal pfcp session delete request message [%v] ", msg)
 	return nil
 }
 
