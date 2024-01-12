@@ -29,7 +29,7 @@ const (
 	UpFunctionFeaturesEpfar uint16 = 1 << 15
 )
 
-//Supported Feature-1
+// Supported Feature-1
 const (
 	UpFunctionFeatures1Dprda uint16 = 1
 	UpFunctionFeatures1Adpdp uint16 = 1 << 1
@@ -49,7 +49,7 @@ const (
 	UpFunctionFeatures1Mptcp uint16 = 1 << 15
 )
 
-//Supported Feature-2
+// Supported Feature-2
 const (
 	UpFunctionFeatures2Atsssll uint16 = 1
 	UpFunctionFeatures2Qfqm    uint16 = 1 << 1
@@ -63,7 +63,7 @@ const (
 )
 
 type UPFunctionFeatures struct {
-	SupportedFeatures uint16
+	SupportedFeatures  uint16
 	SupportedFeatures1 uint16
 	SupportedFeatures2 uint16
 }
@@ -111,4 +111,3 @@ func (u *UPFunctionFeatures) UnmarshalBinary(data []byte) error {
 	}
 	return nil
 }
-

@@ -177,7 +177,6 @@ func (message *Message) IsRequest() (IsRequest bool) {
 }
 
 func (message *Message) IsResponse() (IsResponse bool) {
-	IsResponse = false
 	switch message.Header.MessageType {
 	case PFCP_HEARTBEAT_RESPONSE:
 		IsResponse = true
