@@ -11,14 +11,14 @@ import (
 )
 
 type UEIPAddress struct {
+	Ipv4Address              net.IP
+	Ipv6Address              net.IP
 	Ipv6d                    bool //bit 4
 	Sd                       bool //bit 3
 	V4                       bool //bit 2
 	V6                       bool //bit 1
 	CHV4                     bool //bit 5
 	CHV6                     bool //bit 6
-	Ipv4Address              net.IP
-	Ipv6Address              net.IP
 	Ipv6PrefixDelegationBits uint8
 }
 

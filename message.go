@@ -19,8 +19,8 @@ import (
 )
 
 type Message struct {
-	Header Header      `json:"header"`
 	Body   interface{} `json:"body"`
+	Header Header      `json:"header"`
 }
 
 func (msg *Message) MarshalJSON() ([]byte, error) {
@@ -33,8 +33,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPAssociationSetupRequest)
 
 		return json.Marshal(&struct {
-			Header Header                      `json:"header"`
 			Body   PFCPAssociationSetupRequest `json:"body"`
+			Header Header                      `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -45,8 +45,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPAssociationSetupResponse)
 
 		return json.Marshal(&struct {
-			Header Header                       `json:"header"`
 			Body   PFCPAssociationSetupResponse `json:"body"`
+			Header Header                       `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -56,8 +56,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(HeartbeatRequest)
 
 		return json.Marshal(&struct {
-			Header Header           `json:"header"`
 			Body   HeartbeatRequest `json:"body"`
+			Header Header           `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -67,8 +67,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(HeartbeatResponse)
 
 		return json.Marshal(&struct {
-			Header Header            `json:"header"`
 			Body   HeartbeatResponse `json:"body"`
+			Header Header            `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -78,8 +78,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPSessionEstablishmentRequest)
 
 		return json.Marshal(&struct {
-			Header Header                          `json:"header"`
 			Body   PFCPSessionEstablishmentRequest `json:"body"`
+			Header Header                          `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -89,8 +89,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPSessionEstablishmentResponse)
 
 		return json.Marshal(&struct {
-			Header Header                           `json:"header"`
 			Body   PFCPSessionEstablishmentResponse `json:"body"`
+			Header Header                           `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -100,8 +100,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPSessionModificationRequest)
 
 		return json.Marshal(&struct {
-			Header Header                         `json:"header"`
 			Body   PFCPSessionModificationRequest `json:"body"`
+			Header Header                         `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -111,8 +111,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPSessionModificationResponse)
 
 		return json.Marshal(&struct {
-			Header Header                          `json:"header"`
 			Body   PFCPSessionModificationResponse `json:"body"`
+			Header Header                          `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -122,8 +122,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPSessionDeletionRequest)
 
 		return json.Marshal(&struct {
-			Header Header                     `json:"header"`
 			Body   PFCPSessionDeletionRequest `json:"body"`
+			Header Header                     `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -133,8 +133,8 @@ func (msg *Message) MarshalJSON() ([]byte, error) {
 		body := msg.Body.(PFCPSessionDeletionResponse)
 
 		return json.Marshal(&struct {
-			Header Header                      `json:"header"`
 			Body   PFCPSessionDeletionResponse `json:"body"`
+			Header Header                      `json:"header"`
 		}{
 			Header: msg.Header,
 			Body:   body,
@@ -314,8 +314,6 @@ type PFCPSessionEstablishmentRequest struct {
 	CreatePDR                []*CreatePDR                       `tlv:"1"`
 	CreateFAR                []*CreateFAR                       `tlv:"3"`
 	CreateURR                []*CreateURR                       `tlv:"6"`
-	CreateQER                []*CreateQER                       `tlv:"7"`
-	CreateBAR                []*CreateBAR                       `tlv:"85"`
 	CreateTrafficEndpoint    *CreateTrafficEndpoint             `tlv:"127"`
 	PDNType                  *pfcpType.PDNType                  `tlv:"113"`
 	SGWCFQCSID               *pfcpType.FQCSID                   `tlv:"65"`
@@ -326,6 +324,8 @@ type PFCPSessionEstablishmentRequest struct {
 	UserPlaneInactivityTimer *pfcpType.UserPlaneInactivityTimer `tlv:"117"`
 	UserID                   *pfcpType.UserID                   `tlv:"141"`
 	TraceInformation         *pfcpType.TraceInformation         `tlv:"152"`
+	CreateQER                []*CreateQER                       `tlv:"7"`
+	CreateBAR                []*CreateBAR                       `tlv:"85"`
 }
 
 type CreatePDR struct {
@@ -335,8 +335,8 @@ type CreatePDR struct {
 	OuterHeaderRemoval      *pfcpType.OuterHeaderRemoval      `tlv:"95"`
 	FARID                   *pfcpType.FARID                   `tlv:"108"`
 	URRID                   []*pfcpType.URRID                 `tlv:"81"`
-	QERID                   []*pfcpType.QERID                 `tlv:"109"`
 	ActivatePredefinedRules *pfcpType.ActivatePredefinedRules `tlv:"106"`
+	QERID                   []*pfcpType.QERID                 `tlv:"109"`
 }
 
 type PDI struct {
@@ -349,10 +349,10 @@ type PDI struct {
 	ApplicationID                 *pfcpType.ApplicationID                 `tlv:"24"`
 	EthernetPDUSessionInformation *pfcpType.EthernetPDUSessionInformation `tlv:"142"`
 	EthernetPacketFilter          *EthernetPacketFilter                   `tlv:"132"`
-	QFI                           []*pfcpType.QFI                         `tlv:"124"`
 	FramedRoute                   *pfcpType.FramedRoute                   `tlv:"153"`
 	FramedRouting                 *pfcpType.FramedRouting                 `tlv:"154"`
 	FramedIPv6Route               *pfcpType.FramedIPv6Route               `tlv:"155"`
+	QFI                           []*pfcpType.QFI                         `tlv:"124"`
 }
 
 type EthernetPacketFilter struct {
@@ -505,22 +505,8 @@ type CreatedTrafficEndpoint struct {
 
 type PFCPSessionModificationRequest struct {
 	CPFSEID                  *pfcpType.FSEID                          `tlv:"57"`
-	RemovePDR                []*RemovePDR                             `tlv:"15"`
-	RemoveFAR                []*RemoveFAR                             `tlv:"16"`
-	RemoveURR                []*RemoveURR                             `tlv:"17"`
-	RemoveQER                []*RemoveQER                             `tlv:"18"`
-	RemoveBAR                []*RemoveBAR                             `tlv:"87"`
 	RemoveTrafficEndpoint    *RemoveTrafficEndpoint                   `tlv:"130"`
-	CreatePDR                []*CreatePDR                             `tlv:"1"`
-	CreateFAR                []*CreateFAR                             `tlv:"3"`
-	CreateURR                []*CreateURR                             `tlv:"6"`
-	CreateQER                []*CreateQER                             `tlv:"7"`
-	CreateBAR                []*CreateBAR                             `tlv:"85"`
 	CreateTrafficEndpoint    *CreateTrafficEndpoint                   `tlv:"127"`
-	UpdatePDR                []*UpdatePDR                             `tlv:"9"`
-	UpdateFAR                []*UpdateFAR                             `tlv:"10"`
-	UpdateURR                []*UpdateURR                             `tlv:"13"`
-	UpdateQER                []*UpdateQER                             `tlv:"14"`
 	UpdateBAR                *UpdateBARPFCPSessionModificationRequest `tlv:"86"`
 	UpdateTrafficEndpoint    *UpdateTrafficEndpoint                   `tlv:"129"`
 	PFCPSMReqFlags           *pfcpType.PFCPSMReqFlags                 `tlv:"49"`
@@ -533,6 +519,20 @@ type PFCPSessionModificationRequest struct {
 	UserPlaneInactivityTimer *pfcpType.UserPlaneInactivityTimer       `tlv:"117"`
 	QueryURRReference        *pfcpType.QueryURRReference              `tlv:"125"`
 	TraceInformation         *pfcpType.TraceInformation               `tlv:"152"`
+	RemovePDR                []*RemovePDR                             `tlv:"15"`
+	RemoveFAR                []*RemoveFAR                             `tlv:"16"`
+	RemoveURR                []*RemoveURR                             `tlv:"17"`
+	RemoveQER                []*RemoveQER                             `tlv:"18"`
+	RemoveBAR                []*RemoveBAR                             `tlv:"87"`
+	CreatePDR                []*CreatePDR                             `tlv:"1"`
+	CreateFAR                []*CreateFAR                             `tlv:"3"`
+	CreateURR                []*CreateURR                             `tlv:"6"`
+	CreateQER                []*CreateQER                             `tlv:"7"`
+	CreateBAR                []*CreateBAR                             `tlv:"85"`
+	UpdatePDR                []*UpdatePDR                             `tlv:"9"`
+	UpdateFAR                []*UpdateFAR                             `tlv:"10"`
+	UpdateURR                []*UpdateURR                             `tlv:"13"`
+	UpdateQER                []*UpdateQER                             `tlv:"14"`
 }
 
 type UpdatePDR struct {
@@ -541,10 +541,10 @@ type UpdatePDR struct {
 	Precedence                *pfcpType.Precedence                `tlv:"29"`
 	PDI                       *PDI                                `tlv:"2"`
 	FARID                     *pfcpType.FARID                     `tlv:"108"`
-	URRID                     []*pfcpType.URRID                   `tlv:"81"`
-	QERID                     []*pfcpType.QERID                   `tlv:"109"`
 	ActivatePredefinedRules   *pfcpType.ActivatePredefinedRules   `tlv:"106"`
 	DeactivatePredefinedRules *pfcpType.DeactivatePredefinedRules `tlv:"107"`
+	URRID                     []*pfcpType.URRID                   `tlv:"81"`
+	QERID                     []*pfcpType.QERID                   `tlv:"109"`
 }
 
 type UpdateFAR struct {
@@ -838,11 +838,11 @@ func (msg *PFCPSessionEstablishmentRequest) MarshalJSON() ([]byte, error) {
 	fseid := SeidConv(msg.CPFSEID.Seid)
 
 	return json.Marshal(&struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{
-		Alias: (*Alias)(msg),
 		Fseid: fseid,
+		Alias: (*Alias)(msg),
 	})
 }
 
@@ -851,8 +851,8 @@ func (msg *PFCPSessionEstablishmentRequest) UnmarshalJSON(data []byte) error {
 	type Alias PFCPSessionEstablishmentRequest
 
 	aux := &struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{Alias: (*Alias)(msg)}
 
 	if err := json.Unmarshal(data, &aux); err != nil {
@@ -880,11 +880,11 @@ func (msg *PFCPSessionEstablishmentResponse) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(&struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{
-		Alias: (*Alias)(msg),
 		Fseid: fseid,
+		Alias: (*Alias)(msg),
 	})
 }
 
@@ -893,8 +893,8 @@ func (msg *PFCPSessionEstablishmentResponse) UnmarshalJSON(data []byte) error {
 	type Alias PFCPSessionEstablishmentResponse
 
 	aux := &struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{Alias: (*Alias)(msg)}
 
 	if err := json.Unmarshal(data, &aux); err != nil {
@@ -924,8 +924,8 @@ func (msg *PFCPSessionModificationRequest) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(&struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{
 		Alias: (*Alias)(msg),
 		Fseid: fseid,
@@ -937,8 +937,8 @@ func (msg *PFCPSessionModificationRequest) UnmarshalJSON(data []byte) error {
 	type Alias PFCPSessionModificationRequest
 
 	aux := &struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{Alias: (*Alias)(msg)}
 
 	if err := json.Unmarshal(data, &aux); err != nil {
@@ -966,8 +966,8 @@ func (msg *PFCPSessionDeletionRequest) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(&struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{
 		Alias: (*Alias)(msg),
 		Fseid: fseid,
@@ -979,8 +979,8 @@ func (msg *PFCPSessionDeletionRequest) UnmarshalJSON(data []byte) error {
 	type Alias PFCPSessionDeletionRequest
 
 	aux := &struct {
-		Fseid string `json:"fseid"`
 		*Alias
+		Fseid string `json:"fseid"`
 	}{Alias: (*Alias)(msg)}
 
 	if err := json.Unmarshal(data, &aux); err != nil {

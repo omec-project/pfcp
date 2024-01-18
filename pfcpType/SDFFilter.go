@@ -11,16 +11,16 @@ import (
 )
 
 type SDFFilter struct {
+	FlowDescription         []byte
+	TosTrafficClass         []byte
+	SecurityParameterIndex  []byte
+	FlowLabel               []byte
 	Bid                     bool
 	Fl                      bool
 	Spi                     bool
 	Ttc                     bool
 	Fd                      bool
 	LengthOfFlowDescription uint16
-	FlowDescription         []byte
-	TosTrafficClass         []byte
-	SecurityParameterIndex  []byte
-	FlowLabel               []byte
 	SdfFilterId             uint32
 }
 

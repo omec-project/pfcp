@@ -19,11 +19,11 @@ const (
 )
 
 type OuterHeaderCreation struct {
-	OuterHeaderCreationDescription uint16
-	Teid                           uint32
 	Ipv4Address                    net.IP
 	Ipv6Address                    net.IP
+	Teid                           uint32
 	PortNumber                     uint16
+	OuterHeaderCreationDescription uint16
 }
 
 func (o *OuterHeaderCreation) MarshalBinary() (data []byte, err error) {

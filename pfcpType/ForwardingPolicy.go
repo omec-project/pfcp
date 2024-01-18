@@ -10,8 +10,8 @@ import (
 )
 
 type ForwardingPolicy struct {
-	ForwardingPolicyIdentifierLength uint8
 	ForwardingPolicyIdentifier       []byte
+	ForwardingPolicyIdentifierLength uint8
 }
 
 func (f *ForwardingPolicy) MarshalBinary() (data []byte, err error) {

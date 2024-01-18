@@ -52,7 +52,6 @@ const (
 type Transaction struct {
 	SendMsg        []byte
 	SequenceNumber uint32
-	MessageType    MessageType
 	TxType         TransactionType
 	EventChannel   chan EventType
 	Conn           *net.UDPConn
@@ -60,6 +59,7 @@ type Transaction struct {
 	ConsumerAddr   string
 	ErrHandler     func(*Message, error)
 	EventData      interface{}
+	MessageType    MessageType
 }
 
 // NewTransaction - create pfcp transaction object

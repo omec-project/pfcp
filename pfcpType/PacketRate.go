@@ -26,8 +26,8 @@ type PacketRate struct {
 	ULPR       bool
 	DLPR       bool
 	ULTimeUnit PacketRateTimeUnit
-	MaximumUL  uint16
 	DLTimeUnit PacketRateTimeUnit
+	MaximumUL  uint16
 	MaximumDL  uint16
 }
 
