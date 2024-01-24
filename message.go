@@ -334,8 +334,8 @@ type CreatePDR struct {
 	PDI                     *PDI                              `tlv:"2"`
 	OuterHeaderRemoval      *pfcpType.OuterHeaderRemoval      `tlv:"95"`
 	FARID                   *pfcpType.FARID                   `tlv:"108"`
-	URRID                   []*pfcpType.URRID                 `tlv:"81"`
 	ActivatePredefinedRules *pfcpType.ActivatePredefinedRules `tlv:"106"`
+	URRID                   []*pfcpType.URRID                 `tlv:"81"`
 	QERID                   []*pfcpType.QERID                 `tlv:"109"`
 }
 
