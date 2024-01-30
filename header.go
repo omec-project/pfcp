@@ -126,11 +126,11 @@ func (h *Header) MarshalJSON() ([]byte, error) {
 	type Alias Header
 	seid := SeidConv(h.SEID)
 	return json.Marshal(&struct {
-		Seid string `json:"seid"`
 		*Alias
+		Seid string `json:"seid"`
 	}{
-		Seid:  seid,
 		Alias: (*Alias)(h),
+		Seid:  seid,
 	})
 }
 
@@ -139,8 +139,8 @@ func (h *Header) UnmarshalJSON(data []byte) error {
 	type Alias Header
 
 	aux := &struct {
-		Seid string `json:"seid"`
 		*Alias
+		Seid string `json:"seid"`
 	}{Alias: (*Alias)(h)}
 
 	if err := json.Unmarshal(data, &aux); err != nil {

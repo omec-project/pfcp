@@ -12,9 +12,9 @@ import (
 )
 
 type RedirectInformation struct {
+	RedirectServerAddress       []byte
 	RedirectAddressType         uint8 // 0x00001111
 	RedirectServerAddressLength uint16
-	RedirectServerAddress       []byte
 }
 
 func (r *RedirectInformation) MarshalBinary() (data []byte, err error) {

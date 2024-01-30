@@ -11,17 +11,17 @@ import (
 )
 
 type SDFFilter struct {
-	Bid                     bool
-	Fl                      bool
-	Spi                     bool
-	Ttc                     bool
-	Fd                      bool
-	LengthOfFlowDescription uint16
 	FlowDescription         []byte
 	TosTrafficClass         []byte
 	SecurityParameterIndex  []byte
 	FlowLabel               []byte
 	SdfFilterId             uint32
+	LengthOfFlowDescription uint16
+	Bid                     bool
+	Fl                      bool
+	Spi                     bool
+	Ttc                     bool
+	Fd                      bool
 }
 
 func (s *SDFFilter) MarshalBinary() (data []byte, err error) {

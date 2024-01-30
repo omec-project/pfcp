@@ -23,12 +23,12 @@ const (
 )
 
 type PacketRate struct {
+	MaximumUL  uint16
+	MaximumDL  uint16
+	ULTimeUnit PacketRateTimeUnit
+	DLTimeUnit PacketRateTimeUnit
 	ULPR       bool
 	DLPR       bool
-	ULTimeUnit PacketRateTimeUnit
-	MaximumUL  uint16
-	DLTimeUnit PacketRateTimeUnit
-	MaximumDL  uint16
 }
 
 func (p *PacketRate) MarshalBinary() ([]byte, error) {

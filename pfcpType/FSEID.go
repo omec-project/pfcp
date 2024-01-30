@@ -12,11 +12,11 @@ import (
 )
 
 type FSEID struct {
+	Ipv4Address net.IP
+	Ipv6Address net.IP
 	V4          bool
 	V6          bool
 	Seid        uint64
-	Ipv4Address net.IP
-	Ipv6Address net.IP
 }
 
 func (f *FSEID) MarshalBinary() (data []byte, err error) {

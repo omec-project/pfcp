@@ -33,8 +33,8 @@ type ConsumerTable struct {
 }
 
 type PfcpEventData struct {
-	LSEID      uint64
 	ErrHandler func(*pfcp.Message, error)
+	LSEID      uint64
 }
 
 func (t *ConsumerTable) Load(consumerAddr string) (*pfcp.TxTable, bool) {

@@ -50,16 +50,16 @@ const (
 
 // Transaction - represent the transaction state of pfcp message
 type Transaction struct {
-	SendMsg        []byte
-	SequenceNumber uint32
-	MessageType    MessageType
-	TxType         TransactionType
 	EventChannel   chan EventType
 	Conn           *net.UDPConn
 	DestAddr       *net.UDPAddr
 	ConsumerAddr   string
 	ErrHandler     func(*Message, error)
 	EventData      interface{}
+	SendMsg        []byte
+	SequenceNumber uint32
+	MessageType    MessageType
+	TxType         TransactionType
 }
 
 // NewTransaction - create pfcp transaction object

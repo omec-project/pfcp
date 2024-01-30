@@ -12,13 +12,13 @@ import (
 )
 
 type FTEID struct {
+	Ipv4Address net.IP
+	Ipv6Address net.IP
 	Chid        bool
 	Ch          bool
 	V6          bool
 	V4          bool
 	Teid        uint32
-	Ipv4Address net.IP
-	Ipv6Address net.IP
 	ChooseId    uint8
 }
 

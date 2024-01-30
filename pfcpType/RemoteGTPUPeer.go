@@ -11,10 +11,10 @@ import (
 )
 
 type RemoteGTPUPeer struct {
-	V4          bool
-	V6          bool
 	Ipv4Address net.IP
 	Ipv6Address net.IP
+	V4          bool
+	V6          bool
 }
 
 func (r *RemoteGTPUPeer) MarshalBinary() (data []byte, err error) {

@@ -11,11 +11,11 @@ import (
 )
 
 type HeaderEnrichment struct {
+	HeaderFieldName          []byte
+	HeaderFieldValue         []byte
 	HeaderType               uint8 // 0x00011111
 	LengthOfHeaderFieldName  uint8
-	HeaderFieldName          []byte
 	LengthOfHeaderFieldValue uint8
-	HeaderFieldValue         []byte
 }
 
 func (h *HeaderEnrichment) MarshalBinary() (data []byte, err error) {
