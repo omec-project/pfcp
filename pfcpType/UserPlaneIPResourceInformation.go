@@ -20,10 +20,10 @@ type UserPlaneIPResourceInformation struct {
 	NetworkInstance util_3gpp.Dnn
 	Assosi          bool
 	Assoni          bool
-	Teidri          uint8 // 0x00011100
 	V6              bool
 	V4              bool
 	TeidRange       uint8
+	Teidri          uint8 // 0x00011100
 	SourceInterface uint8 // 0x00001111
 }
 

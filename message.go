@@ -311,9 +311,6 @@ type PFCPSessionSetDeletionResponse struct {
 type PFCPSessionEstablishmentRequest struct {
 	NodeID                   *pfcpType.NodeID                   `tlv:"60"`
 	CPFSEID                  *pfcpType.FSEID                    `tlv:"57"`
-	CreatePDR                []*CreatePDR                       `tlv:"1"`
-	CreateFAR                []*CreateFAR                       `tlv:"3"`
-	CreateURR                []*CreateURR                       `tlv:"6"`
 	CreateTrafficEndpoint    *CreateTrafficEndpoint             `tlv:"127"`
 	PDNType                  *pfcpType.PDNType                  `tlv:"113"`
 	SGWCFQCSID               *pfcpType.FQCSID                   `tlv:"65"`
@@ -324,6 +321,9 @@ type PFCPSessionEstablishmentRequest struct {
 	UserPlaneInactivityTimer *pfcpType.UserPlaneInactivityTimer `tlv:"117"`
 	UserID                   *pfcpType.UserID                   `tlv:"141"`
 	TraceInformation         *pfcpType.TraceInformation         `tlv:"152"`
+	CreatePDR                []*CreatePDR                       `tlv:"1"`
+	CreateFAR                []*CreateFAR                       `tlv:"3"`
+	CreateURR                []*CreateURR                       `tlv:"6"`
 	CreateQER                []*CreateQER                       `tlv:"7"`
 	CreateBAR                []*CreateBAR                       `tlv:"85"`
 }

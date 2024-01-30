@@ -15,13 +15,13 @@ type SDFFilter struct {
 	TosTrafficClass         []byte
 	SecurityParameterIndex  []byte
 	FlowLabel               []byte
+	SdfFilterId             uint32
+	LengthOfFlowDescription uint16
 	Bid                     bool
 	Fl                      bool
 	Spi                     bool
 	Ttc                     bool
 	Fd                      bool
-	LengthOfFlowDescription uint16
-	SdfFilterId             uint32
 }
 
 func (s *SDFFilter) MarshalBinary() (data []byte, err error) {
