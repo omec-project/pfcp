@@ -4,17 +4,17 @@ go 1.21
 
 require (
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
-	github.com/omec-project/logger_conf v1.1.0
+	github.com/omec-project/logger_conf v1.1.1-0.20240213150911-6ea2670f1fc0
 	github.com/omec-project/logger_util v1.1.0
 	github.com/omec-project/tlv v1.1.0
-	github.com/omec-project/util_3gpp v1.1.1
+	github.com/omec-project/util_3gpp v1.0.2-0.20240219184455-324fc9a8fa73
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
 )
 
 require (
-	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef // indirect
+	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -32,8 +32,8 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/omec-project/openapi v1.0.100-dev // indirect
-	github.com/omec-project/path_util v1.1.0 // indirect
+	github.com/omec-project/openapi v1.1.0 // indirect
+	github.com/omec-project/util v1.0.13-0.20240207024358-eb30f7e970e8 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
