@@ -7,7 +7,7 @@ require (
 	github.com/omec-project/logger_conf v1.1.1-0.20240213150911-6ea2670f1fc0
 	github.com/omec-project/logger_util v1.1.0
 	github.com/omec-project/tlv v1.1.0
-	github.com/omec-project/util_3gpp v1.0.2-0.20240219184455-324fc9a8fa73
+	github.com/omec-project/util_3gpp v1.1.1
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
