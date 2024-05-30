@@ -15,7 +15,7 @@ import (
 
 	"github.com/omec-project/pfcp/logger"
 	"github.com/omec-project/pfcp/pfcpType"
-	"github.com/omec-project/util_3gpp"
+	"github.com/omec-project/util/util_3gpp"
 )
 
 type Message struct {

@@ -11,7 +11,7 @@ import (
 	"net"
 
 	"github.com/omec-project/pfcp/logger"
-	"github.com/omec-project/util_3gpp"
+	"github.com/omec-project/util/util_3gpp"
 )
 
 type UserPlaneIPResourceInformation struct {
