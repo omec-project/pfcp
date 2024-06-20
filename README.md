@@ -9,6 +9,7 @@ SPDX-License-Identifier: Apache-2.0
 
 # pfcp
 
+
 The PFCP protocol is the interface between the Control and User Plane. 
 The SMF (Session Management Function) uses the PFCP module to communicate with the UPF (User Plane Function). 
 The PFCP protocol is defined in 3GPP specification 29.244.
